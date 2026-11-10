@@ -1,0 +1,1758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sivapriyan S</title>
+  <link rel="icon" href="logo.png" type="image/x-icon">
+  <meta name="description" content="Official Manga-Book interactive developer portfolio of Sivapriyan S — Web Developer, Python Programmer, Java Programmer & B.Tech CSE (Applied AI) student from Chennai.">
+  <meta name="keywords" content="Sivapriyan S, Web Developer, Python Programmer, Java Programmer, Applied AI, Chennai, Portfolio, Manga Book Portfolio">
+  <meta name="author" content="Sivapriyan S">
+  <meta property="og:title" content="Sivapriyan S | Manga-Book Developer Portfolio">
+  <meta property="og:description" content="Step into an interactive manga book experience showcasing projects, technical toolkit, and development journey.">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts: Bebas Neue for Manga headlines, Comic Neue / Bangers for onomatopoeia, and Inter for crisp reading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@700;900&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+
+  <!--Email js-->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+
+  <style>
+    :root {
+      --bg-dark: #050505;
+      --paper-cream: #F4F1E8;
+      --paper-cream-dark: #E6E0D2;
+      --ink-black: #111111;
+      --ink-soft: #262626;
+      --blue-accent: #1683FF;
+      --blue-deep: #0756B8;
+      --blue-glow: rgba(22, 131, 255, 0.35);
+      --font-manga: 'Bebas Neue', sans-serif;
+      --font-burst: 'Bangers', cursive;
+      --font-body: 'Inter', sans-serif;
+      --font-kanji: 'Noto Sans JP', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: #FFFFFF;
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      user-select: none;
+    }
+
+    /* Comic Halftone Background Pattern */
+    .halftone-pattern {
+      background-image: radial-gradient(circle, #111111 18%, transparent 19%);
+      background-size: 8px 8px;
+    }
+
+    .halftone-dots-white {
+      background-image: radial-gradient(circle, rgba(255, 255, 255, 0.12) 15%, transparent 16%);
+      background-size: 10px 10px;
+    }
+
+    .halftone-overlay {
+      background-image: radial-gradient(circle, rgba(22, 131, 255, 0.15) 15%, transparent 16%);
+      background-size: 12px 12px;
+    }
+
+    /* Manga Ink Borders & Shadows */
+    .manga-panel {
+      border: 3.5px solid var(--ink-black);
+      background-color: var(--paper-cream);
+      color: var(--ink-black);
+      box-shadow: 5px 5px 0px var(--ink-black);
+      position: relative;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+    }
+
+    .manga-panel-dark {
+      border: 3.5px solid #FFFFFF;
+      background-color: #0d0d0d;
+      color: #FFFFFF;
+      box-shadow: 5px 5px 0px var(--blue-accent);
+    }
+
+    .manga-panel:hover {
+      box-shadow: 7px 7px 0px var(--blue-accent);
+    }
+
+    .manga-panel-inset {
+      border: 2px solid var(--ink-black);
+      background-color: #ffffff;
+      box-shadow: inset 2px 2px 0px rgba(0,0,0,0.06);
+    }
+
+    .font-manga { font-family: var(--font-manga); letter-spacing: 0.05em; }
+    .font-burst { font-family: var(--font-burst); letter-spacing: 0.06em; }
+    .font-kanji { font-family: var(--font-kanji); }
+
+    /* Speech Bubble */
+    .speech-bubble {
+      position: relative;
+      background: #FFFFFF;
+      border: 3px solid var(--ink-black);
+      border-radius: 18px;
+      padding: 12px 16px;
+      box-shadow: 4px 4px 0px var(--ink-black);
+      color: var(--ink-black);
+    }
+    .speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -14px;
+      left: 28px;
+      border-width: 14px 12px 0 0;
+      border-style: solid;
+      border-color: #FFFFFF transparent;
+      display: block;
+      width: 0;
+      z-index: 2;
+    }
+    .speech-bubble::before {
+      content: '';
+      position: absolute;
+      bottom: -18px;
+      left: 26px;
+      border-width: 16px 14px 0 0;
+      border-style: solid;
+      border-color: var(--ink-black) transparent;
+      display: block;
+      width: 0;
+      z-index: 1;
+    }
+
+    /* Onomatopoeia Sound FX Badge */
+    .sfx-badge {
+      font-family: var(--font-burst);
+      text-transform: uppercase;
+      transform: rotate(-6deg);
+      display: inline-block;
+      text-shadow: 2px 2px 0px #000;
+      filter: drop-shadow(3px 3px 0px var(--blue-deep));
+    }
+
+    /* Comic Buttons */
+    .btn-manga {
+      font-family: var(--font-manga);
+      border: 3px solid var(--ink-black);
+      background-color: #FFFFFF;
+      color: var(--ink-black);
+      box-shadow: 4px 4px 0px var(--ink-black);
+      transition: all 0.15s ease;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+    .btn-manga:hover {
+      background-color: var(--blue-accent);
+      color: #FFFFFF;
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px var(--ink-black);
+    }
+    .btn-manga:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px var(--ink-black);
+    }
+    .btn-manga-blue {
+      background-color: var(--blue-accent);
+      color: #FFFFFF;
+      border: 3px solid var(--ink-black);
+      box-shadow: 4px 4px 0px var(--ink-black);
+    }
+    .btn-manga-blue:hover {
+      background-color: #0b6ed6;
+      box-shadow: 6px 6px 0px #FFFFFF;
+    }
+
+    @keyframes contactFormShake {
+      0%, 100% {
+        transform: translateX(0);
+      }
+      20% {
+        transform: translateX(-4px);
+      }
+      40% {
+        transform: translateX(4px);
+      }
+      60% {
+        transform: translateX(-3px);
+      }
+      80% {
+        transform: translateX(3px);
+      }
+    }
+
+    .contact-form-shake {
+      animation: contactFormShake 0.28s ease-in-out 3;
+    }
+
+    /* 3D Manga Book Viewport */
+    .book-stage {
+      perspective: 2400px;
+      perspective-origin: 50% 50%;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5.5rem 1rem 5.5rem 1rem;
+      position: relative;
+    }
+
+    .book-container {
+      width: 100%;
+      max-width: 980px;
+      min-height: 540px;
+      height: 72vh;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    @media (max-width: 768px) {
+      .book-container {
+        height: auto;
+        min-height: 68vh;
+        max-width: 100%;
+      }
+      .book-stage {
+        padding: 5rem 0.5rem 5rem 0.5rem;
+      }
+    }
+
+    /* Individual Page Shell */
+    .manga-page {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--paper-cream);
+      border-radius: 12px;
+      border: 4px solid var(--ink-black);
+      box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.65),
+        -5px 0 15px rgba(0,0,0,0.25) inset,
+        8px 8px 0px rgba(22, 131, 255, 0.2);
+      overflow-y: auto;
+      overflow-x: hidden;
+      transform-origin: left center;
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease, visibility 0.4s ease;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      scrollbar-width: thin;
+      scrollbar-color: var(--ink-black) var(--paper-cream-dark);
+    }
+
+    .manga-page::-webkit-scrollbar {
+      width: 6px;
+    }
+    .manga-page::-webkit-scrollbar-thumb {
+      background-color: var(--ink-black);
+      border-radius: 4px;
+    }
+    .manga-page::-webkit-scrollbar-track {
+      background: var(--paper-cream-dark);
+    }
+
+    /* Realistic Spine Shadow along left edge of inside pages */
+    .page-spine-shadow {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 32px;
+      background: linear-gradient(to right, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0.06) 60%, transparent 100%);
+      pointer-events: none;
+      z-index: 40;
+    }
+
+    /* Page Turn States */
+    .manga-page.past {
+      transform: rotateY(-180deg);
+      pointer-events: none;
+      visibility: hidden;
+      opacity: 0;
+      z-index: 1;
+    }
+
+    .manga-page.active {
+      transform: rotateY(0deg);
+      pointer-events: auto;
+      visibility: visible;
+      opacity: 1;
+      z-index: 20;
+    }
+
+    .manga-page.future {
+      transform: rotateY(0deg);
+      pointer-events: none;
+      visibility: hidden;
+      opacity: 0;
+      z-index: 5;
+    }
+
+    /* Paper texture simulation */
+    .paper-texture {
+      background-image: radial-gradient(rgba(17, 17, 17, 0.05) 1px, transparent 0);
+      background-size: 16px 16px;
+    }
+
+    /* Custom Manga Crosshair Cursor */
+    #manga-cursor {
+      position: fixed;
+      width: 32px;
+      height: 32px;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.12s ease, height 0.12s ease;
+      display: none;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      body {
+        cursor: crosshair;
+      }
+      #manga-cursor {
+        display: block;
+      }
+    }
+
+    /* Impact Rings on Click */
+    .manga-click-ring {
+      position: fixed;
+      pointer-events: none;
+      border: 3px solid var(--blue-accent);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0.2);
+      animation: impactExpand 0.45s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+      z-index: 9998;
+    }
+
+    .manga-click-burst {
+      position: fixed;
+      pointer-events: none;
+      font-family: var(--font-burst);
+      font-size: 18px;
+      font-weight: bold;
+      color: #FFFFFF;
+      background-color: var(--ink-black);
+      border: 2px solid var(--blue-accent);
+      padding: 2px 8px;
+      border-radius: 6px;
+      transform: translate(-50%, -50%) rotate(-12deg) scale(0.6);
+      animation: burstFloat 0.55s ease forwards;
+      z-index: 9998;
+      box-shadow: 3px 3px 0px var(--blue-deep);
+    }
+
+    @keyframes impactExpand {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.2);
+      }
+      80% {
+        opacity: 0.8;
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(2.8);
+      }
+    }
+
+    @keyframes burstFloat {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(-12deg) scale(0.7);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -90px) rotate(8deg) scale(1.1);
+      }
+    }
+
+    /* Speedlines Canvas */
+    #speedline-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.35;
+      transition: opacity 0.3s ease;
+    }
+
+    /* Reduced Motion Support */
+    @media (prefers-reduced-motion: reduce) {
+      .manga-page, .manga-page.past, .manga-page.active, .manga-page.future {
+        transition: opacity 0.2s ease !important;
+        transform: none !important;
+      }
+      #speedline-canvas {
+        display: none !important;
+      }
+      .manga-click-ring, .manga-click-burst {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-[#050505] text-white">
+
+  <!-- Ambient Manga Speedlines Canvas -->
+  <canvas id="speedline-canvas"></canvas>
+
+  <!-- Interactive Manga Cursor element -->
+  <div id="manga-cursor" aria-hidden="true">
+    <svg viewBox="0 0 40 40" class="w-full h-full filter drop-shadow-[0_0_6px_#1683FF]">
+      <circle cx="20" cy="20" r="14" fill="none" stroke="#1683FF" stroke-width="2.5" stroke-dasharray="4 2"/>
+      <circle cx="20" cy="20" r="3.5" fill="#FFFFFF"/>
+      <line x1="20" y1="2" x2="20" y2="10" stroke="#1683FF" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="20" y1="30" x2="20" y2="38" stroke="#1683FF" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="2" y1="20" x2="10" y2="20" stroke="#1683FF" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="30" y1="20" x2="38" y2="20" stroke="#1683FF" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <!-- Screen Flash for page transition kicks -->
+  <div id="screen-flash" class="fixed inset-0 bg-[#1683FF] opacity-0 pointer-events-none transition-opacity duration-300 z-50"></div>
+
+  <!-- Manga Header Bar -->
+  <header class="fixed top-3 left-1/2 -translate-x-1/2 z-40 w-11/12 max-w-5xl flex items-center justify-between px-4 py-2.5 bg-[#0d0d0d]/95 backdrop-blur-md border-2 border-white/80 rounded-xl shadow-[4px_4px_0px_#1683FF]">
+    <div class="flex items-center gap-3">
+      <div class="bg-[#1683FF] text-white font-burst text-lg px-2.5 py-0.5 rounded border border-black shadow-[2px_2px_0px_#000]">
+        SP
+      </div>
+      <div>
+        <h1 class="font-manga text-xl tracking-wider text-white leading-none">SIVAPRIYAN S</h1>
+        <p class="text-[10px] text-gray-400 font-mono tracking-widest hidden sm:block">MANGA EDITION • VOL. 01</p>
+      </div>
+    </div>
+
+    <!-- Chapter Fast-Jump Quick Nav -->
+    <nav class="flex items-center gap-2" aria-label="Book chapter navigation">
+      <div class="hidden md:flex items-center gap-1 text-xs font-manga tracking-wide">
+        <button onclick="goToPage(0)" class="nav-ch-btn px-2.5 py-1 rounded border border-gray-700 hover:border-[#1683FF] hover:text-[#1683FF] transition">COVER</button>
+        <button onclick="goToPage(1)" class="nav-ch-btn px-2.5 py-1 rounded border border-gray-700 hover:border-[#1683FF] hover:text-[#1683FF] transition">HERO</button>
+        <button onclick="goToPage(2)" class="nav-ch-btn px-2.5 py-1 rounded border border-gray-700 hover:border-[#1683FF] hover:text-[#1683FF] transition">ABOUT</button>
+        <button onclick="goToPage(3)" class="nav-ch-btn px-2.5 py-1 rounded border border-gray-700 hover:border-[#1683FF] hover:text-[#1683FF] transition">PROJECTS</button>
+        <button onclick="goToPage(4)" class="nav-ch-btn px-2.5 py-1 rounded border border-gray-700 hover:border-[#1683FF] hover:text-[#1683FF] transition">BLOG/WORKS</button>
+        <button onclick="goToPage(5)" class="nav-ch-btn px-2.5 py-1 rounded border border-[#1683FF] text-[#1683FF] hover:bg-[#1683FF] hover:text-white transition">CONTACT</button>
+      </div>
+
+      <!-- Sound Toggle & FX -->
+      <div class="flex items-center gap-1.5 pl-2 border-l border-gray-800">
+        <button id="sound-toggle-btn" onclick="toggleAudio()" class="p-1.5 rounded bg-[#1c1c1c] border border-gray-700 hover:border-[#1683FF] text-xs flex items-center gap-1 transition" title="Toggle Page Flip Sound">
+          <span id="sound-icon">🔊</span>
+          <span class="sr-only">Toggle SFX</span>
+        </button>
+        <button id="fx-toggle-btn" onclick="toggleSpeedlines()" class="p-1.5 rounded bg-[#1c1c1c] border border-gray-700 hover:border-[#1683FF] text-xs flex items-center gap-1 transition" title="Toggle Speedlines">
+          <span>⚡</span>
+          <span class="sr-only">Toggle Speedlines</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="book-stage">
+    <div class="book-container" id="book-container">
+
+      <!-- PAGE 0: MANGA COVER (Volume 1 Front Cover) -->
+      <section id="page-0" class="manga-page active bg-[#0a0a0a] text-white border-4 border-[#FFFFFF] !shadow-[0_20px_50px_rgba(0,0,0,0.9),10px_10px_0px_#1683FF]" aria-label="Page 0: Manga Book Cover">
+        <div class="page-spine-shadow opacity-40"></div>
+        
+        <div class="relative w-full h-full p-6 md:p-10 flex flex-col justify-between halftone-dots-white overflow-hidden">
+          
+          <!-- Background Abstract Speedburst Graphic -->
+          <div class="absolute -right-20 -bottom-20 w-96 h-96 border-[12px] border-[#1683FF]/20 rounded-full pointer-events-none animate-pulse"></div>
+          <div class="absolute right-10 top-12 font-kanji text-gray-800 text-7xl font-black select-none pointer-events-none opacity-40">
+            開発者
+          </div>
+
+          <!-- Top Cover Banner -->
+          <div class="relative z-10 flex items-center justify-between border-b-4 border-white pb-3">
+            <div class="flex items-center gap-2">
+              <span class="bg-[#1683FF] text-black font-burst text-sm px-2.5 py-1 tracking-wider uppercase">SHONEN DEV JUMP</span>
+              <span class="text-xs font-mono text-gray-300">ISSUE #01 • SPECIAL EDITION</span>
+            </div>
+            <div class="text-right">
+              <span class="font-burst text-lg text-[#1683FF]">VOL. 01</span>
+            </div>
+          </div>
+
+          <!-- Central Cover Artwork & Title Typography -->
+          <div class="relative z-10 my-auto py-6 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="max-w-xl">
+              <div class="inline-block bg-[#1683FF] text-white font-burst px-3 py-1 text-sm md:text-base rotate-[-3deg] mb-3 shadow-[3px_3px_0px_#000]">
+                ★ B.TECH CSE (APPLIED AI) ★
+              </div>
+              
+              <h2 class="font-manga text-5xl sm:text-7xl md:text-8xl tracking-tight text-white leading-none drop-shadow-[4px_4px_0px_#000]">
+                SIVAPRIYAN S
+              </h2>
+              
+              <div class="h-2 w-32 bg-[#1683FF] my-4 mx-auto md:mx-0 shadow-[2px_2px_0px_#FFF]"></div>
+              
+              <p class="font-burst text-xl sm:text-2xl text-gray-200 tracking-wider">
+                WEB DEVELOPER • PYTHON PROGRAMMER • JAVA PROGRAMMER
+              </p>
+              
+              <p class="text-sm text-gray-400 mt-2 font-mono flex items-center justify-center md:justify-start gap-2">
+                <span>📍 CHENNAI, INDIA</span>
+                <span>•</span>
+                <span>ORIGINAL MANGA PORTFOLIO</span>
+              </p>
+            </div>
+
+            <!-- Stylized Manga Developer Avatar Shield -->
+            <div class="relative flex-shrink-0">
+              <div class="w-48 h-48 sm:w-56 sm:h-56 rounded-2xl bg-[#111111] border-4 border-white shadow-[8px_8px_0px_#1683FF] flex flex-col items-center justify-center p-4 relative overflow-hidden group">
+                <div class="absolute inset-0 halftone-pattern opacity-30"></div>
+                <!-- Abstract Developer Character SVG -->
+                <svg viewBox="0 0 100 100" class="w-32 h-32 relative z-10 text-white">
+                  <!-- Head outline with manga hair spikes -->
+                  <polygon points="50,15 58,25 70,22 66,35 80,40 68,52 74,68 58,62 50,75 42,62 26,68 32,52 20,40 34,35 30,22 42,25" fill="#1683FF" stroke="#FFFFFF" stroke-width="2.5"/>
+                  <!-- Face & Visor -->
+                  <rect x="35" y="42" width="30" height="14" rx="4" fill="#050505" stroke="#FFFFFF" stroke-width="2"/>
+                  <line x1="38" y1="49" x2="62" y2="49" stroke="#1683FF" stroke-width="3" stroke-linecap="round"/>
+                  <!-- Torso / Jacket collar -->
+                  <path d="M25,85 L35,68 L65,68 L75,85 Z" fill="#222222" stroke="#FFFFFF" stroke-width="2"/>
+                  <polygon points="50,68 44,78 56,78" fill="#1683FF"/>
+                </svg>
+                <div class="relative z-10 mt-2 text-center">
+                  <span class="font-burst text-xs bg-white text-black px-2 py-0.5 rounded">CODE ARCHITECT</span>
+                </div>
+              </div>
+              <div class="absolute -bottom-3 -right-3 bg-white text-black font-burst text-xs px-2 py-1 border-2 border-black rotate-[6deg] shadow-[2px_2px_0px_#1683FF]">
+                CHAPTER 00
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Cover Barcode & Open Book CTA -->
+          <div class="relative z-10 pt-4 border-t-2 border-dashed border-gray-700 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <!-- Simulated ISBN barcode -->
+            <div class="flex items-center gap-3">
+              <div class="bg-white p-1 rounded border border-black flex items-center gap-0.5 h-9">
+                <div class="w-1 h-full bg-black"></div>
+                <div class="w-0.5 h-full bg-black"></div>
+                <div class="w-2 h-full bg-black"></div>
+                <div class="w-1 h-full bg-black"></div>
+                <div class="w-3 h-full bg-black"></div>
+                <div class="w-0.5 h-full bg-black"></div>
+                <div class="w-1.5 h-full bg-black"></div>
+                <div class="w-2 h-full bg-black"></div>
+                <div class="w-0.5 h-full bg-black"></div>
+                <div class="w-1 h-full bg-black"></div>
+              </div>
+              <div class="text-[10px] font-mono text-gray-400">
+                <span>ISBN 978-SP-CSE-AI</span><br>
+                <span>PUBLISHER: SP CREATIONS</span>
+              </div>
+            </div>
+
+            <!-- Open Book Trigger -->
+            <button onclick="startBookOpeningSequence()" class="btn-manga btn-manga-blue text-lg sm:text-xl px-7 py-3 rounded-xl font-manga tracking-wider transform hover:scale-105 transition-all shadow-[6px_6px_0px_#FFFFFF]">
+              <span>OPEN BOOK</span>
+              <span class="text-xl">➔</span>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- PAGE 1: HERO SPREAD -->
+      <section id="page-1" class="manga-page future" aria-label="Page 1: Hero Spread">
+        <div class="page-spine-shadow"></div>
+        <div class="p-6 md:p-8 flex flex-col justify-between h-full paper-texture">
+          
+          <!-- Page Header Strip -->
+          <div class="flex items-center justify-between border-b-2 border-black pb-2 mb-4">
+            <div class="flex items-center gap-2">
+              <span class="font-burst text-sm bg-black text-white px-2 py-0.5">CH. 01</span>
+              <span class="font-manga text-lg tracking-wider text-[#111111]">AWAKENING OF THE DEVELOPER</span>
+            </div>
+            <span class="font-mono text-xs font-bold text-gray-600">PAGE 01 / 05</span>
+          </div>
+
+          <!-- Main Spread Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-5 my-auto">
+            
+            <!-- Left Large Hero Panel -->
+            <div class="md:col-span-7 manga-panel p-5 rounded-xl flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <span class="sfx-badge text-xl text-[#1683FF] bg-black px-2 py-0.5 rounded">
+                    ZOOM!! ⚡
+                  </span>
+                  <span class="text-xs font-mono font-bold bg-[#1683FF]/15 text-[#0756B8] px-2 py-1 rounded border border-[#1683FF]/30">
+                    STATUS: READY TO BUILD
+                  </span>
+                </div>
+
+                <!-- Speech Bubble Monologue -->
+                <div class="speech-bubble mb-5">
+                  <p class="font-bold text-sm text-gray-900 leading-snug">
+                    "I am a Computer Science Engineering student passionate about crafting reliable web applications, engineering robust Python algorithms, and structuring Java enterprise systems!"
+                  </p>
+                </div>
+
+                <h3 class="font-manga text-4xl sm:text-5xl text-black leading-none tracking-tight">
+                  HI, I'M <span class="text-[#1683FF] underline decoration-4 decoration-black">SIVAPRIYAN S</span>
+                </h3>
+
+                <p class="font-burst text-lg text-gray-800 mt-2">
+                  Web Developer • Python Programmer • Java Programmer
+                </p>
+
+                <p class="text-xs text-gray-700 font-sans mt-3 leading-relaxed">
+                  Currently pursuing <strong>B.Tech in Computer Science and Engineering with Applied AI</strong> in <strong>Chennai</strong>. Driven by solving real-world challenges through clean code architecture, data-driven intelligence, and modern web interfaces.
+                </p>
+              </div>
+
+              <!-- Quick CTA Buttons -->
+              <div class="flex flex-wrap gap-3 mt-6 pt-4 border-t-2 border-dashed border-gray-300">
+                <button onclick="goToPage(3)" class="btn-manga btn-manga-blue text-sm px-4 py-2 rounded-lg font-manga tracking-wider">
+                  VIEW MY WORK ⚡
+                </button>
+                <button onclick="goToPage(2)" class="btn-manga text-sm px-4 py-2 rounded-lg font-manga tracking-wider">
+                  READ MY STORY ➔
+                </button>
+                <button onclick="goToPage(5)" class="btn-manga text-sm px-4 py-2 rounded-lg font-manga tracking-wider hover:bg-black hover:text-white">
+                  CONTACT ME ✉
+                </button>
+              </div>
+            </div>
+
+            <!-- Right Visual Panel: Manga Avatar Card & Quick Stats -->
+            <div class="md:col-span-5 flex flex-col gap-4">
+              
+              <!-- Character Panel Box -->
+              <div class="manga-panel p-4 rounded-xl flex flex-col items-center text-center">
+                <div class="w-full bg-[#111111] text-white p-3 rounded-lg border-2 border-black mb-3 relative overflow-hidden">
+                  <div class="absolute inset-0 halftone-pattern opacity-25"></div>
+                  <div class="relative z-10 flex items-center justify-between">
+                    <span class="font-burst text-xs text-[#1683FF]">CLASS: APPLIED AI</span>
+                    <span class="font-mono text-[10px] bg-white/20 px-2 py-0.5 rounded">LVL: STUDENT</span>
+                  </div>
+                  
+                  <div class="my-3 flex justify-center">
+                    <div class="w-24 h-24 rounded-full border-4 border-[#1683FF] bg-[#1a1a1a] flex items-center justify-center shadow-[0_0_12px_#1683FF]">
+                      <!-- Developer Silhouette Graphic -->
+                      <svg viewBox="0 0 64 64" class="w-16 h-16 text-white">
+                        <circle cx="32" cy="24" r="14" fill="#E6E0D2" stroke="#111" stroke-width="2"/>
+                        <!-- Manga Hair -->
+                        <path d="M18,22 C22,12 42,10 46,22 C42,16 34,14 26,17 Z" fill="#1683FF"/>
+                        <!-- Glasses -->
+                        <rect x="22" y="22" width="8" height="6" rx="1" fill="#111"/>
+                        <rect x="34" y="22" width="8" height="6" rx="1" fill="#111"/>
+                        <line x1="30" y1="25" x2="34" y2="25" stroke="#111" stroke-width="2"/>
+                        <!-- Body -->
+                        <path d="M16,56 C16,42 24,38 32,38 C40,38 48,42 48,56 Z" fill="#111"/>
+                        <polygon points="32,38 29,48 35,48" fill="#1683FF"/>
+                      </svg>
+                    </div>
+                  </div>
+
+                  <p class="font-manga text-xl tracking-wider text-white">SIVAPRIYAN S</p>
+                  <p class="text-[11px] text-gray-300 font-mono">Location: Chennai, Tamil Nadu</p>
+                </div>
+
+                <!-- Attributes / Highlights -->
+                <div class="w-full grid grid-cols-2 gap-2 text-left text-xs">
+                  <div class="p-2 bg-white rounded border border-black">
+                    <span class="font-bold text-gray-500 block text-[10px]">PRIMARY FOCUS</span>
+                    <span class="font-bold text-black">Web & Software</span>
+                  </div>
+                  <div class="p-2 bg-white rounded border border-black">
+                    <span class="font-bold text-gray-500 block text-[10px]">CORE LANGUAGES</span>
+                    <span class="font-bold text-black">Python • Java</span>
+                  </div>
+                  <div class="p-2 bg-white rounded border border-black">
+                    <span class="font-bold text-gray-500 block text-[10px]">SPECIALIZATION</span>
+                    <span class="font-bold text-black">Applied AI</span>
+                  </div>
+                  <div class="p-2 bg-white rounded border border-black">
+                    <span class="font-bold text-gray-500 block text-[10px]">DEVELOPMENT</span>
+                    <span class="font-bold text-black">Frontend & Logic</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quick Comic Tip Panel -->
+              <div class="manga-panel-dark p-3 rounded-xl flex items-center gap-3">
+                <span class="font-burst text-2xl text-[#1683FF]">TIP!</span>
+                <p class="text-xs text-gray-300 leading-tight font-mono">
+                  Use your <kbd class="px-1.5 py-0.5 bg-black rounded text-white border border-gray-600">◀</kbd> and <kbd class="px-1.5 py-0.5 bg-black rounded text-white border border-gray-600">▶</kbd> keyboard keys or swipe to flip through pages!
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Page Footer Indicator -->
+          <div class="border-t-2 border-black pt-2 flex items-center justify-between text-xs font-mono font-bold text-gray-700">
+            <span>[ SIVAPRIYAN S - PORTFOLIO MANGA ]</span>
+            <span>CONTINUE TO ORIGIN & ARSENAL ➔</span>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- PAGE 2: ABOUT CHAPTER ("ORIGIN & ARSENAL") -->
+      <section id="page-2" class="manga-page future" aria-label="Page 2: About Chapter">
+        <div class="page-spine-shadow"></div>
+        <div class="p-6 md:p-8 flex flex-col justify-between h-full paper-texture">
+          
+          <!-- Chapter Banner -->
+          <div class="flex items-center justify-between border-b-2 border-black pb-2 mb-4">
+            <div class="flex items-center gap-2">
+              <span class="font-burst text-sm bg-black text-white px-2 py-0.5">CH. 02</span>
+              <span class="font-manga text-lg tracking-wider text-[#111111]">ORIGIN & ARSENAL</span>
+            </div>
+            <span class="font-mono text-xs font-bold text-gray-600">PAGE 02 / 05</span>
+          </div>
+
+          <!-- 4 Comic Panels Layout -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-auto">
+            
+            <!-- PANEL 01: WHO AM I? -->
+            <div class="manga-panel p-4 rounded-xl flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between border-b-2 border-black pb-1 mb-2">
+                  <span class="font-burst text-xs bg-black text-white px-2 py-0.5 rounded">PANEL 01</span>
+                  <span class="font-manga text-base tracking-wide text-[#1683FF]">WHO AM I?</span>
+                </div>
+                <h4 class="font-manga text-2xl text-black">THE ORIGIN STORY</h4>
+                <p class="text-xs text-gray-800 leading-relaxed mt-2 font-sans">
+                  Hello! I am <strong>Sivapriyan S</strong>, based in Chennai, currently pursuing my undergraduate degree in <strong>B.Tech Computer Science and Engineering with specialization in Applied AI</strong>.
+                </p>
+                <p class="text-xs text-gray-800 leading-relaxed mt-2 font-sans">
+                  My programming journey centers on disciplined problem-solving. Whether writing backend scripts, understanding neural algorithms, or crafting responsive web user interfaces, I value clean and understandable code.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-dashed border-gray-400 flex items-center gap-2 text-[11px] font-mono text-gray-600">
+                <span>📍 Chennai, India</span>
+                <span>•</span>
+                <span>B.Tech CSE (Applied AI)</span>
+              </div>
+            </div>
+
+            <!-- PANEL 02: WHAT I BUILD -->
+            <div class="manga-panel p-4 rounded-xl flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between border-b-2 border-black pb-1 mb-2">
+                  <span class="font-burst text-xs bg-black text-white px-2 py-0.5 rounded">PANEL 02</span>
+                  <span class="font-manga text-base tracking-wide text-[#1683FF]">WHAT I BUILD</span>
+                </div>
+                <h4 class="font-manga text-2xl text-black">DISCIPLINES & DOMAINS</h4>
+                
+                <div class="space-y-2.5 mt-3">
+                  <div class="p-2 bg-white rounded border border-black shadow-[2px_2px_0px_#000]">
+                    <p class="font-bold text-xs text-black flex items-center gap-1.5">
+                      <span class="text-[#1683FF]">✦</span> Web Applications & Interfaces
+                    </p>
+                    <p class="text-[11px] text-gray-600 mt-0.5">
+                      Clean semantic HTML, responsive CSS, interactive client JavaScript, and accessible experiences.
+                    </p>
+                  </div>
+
+                  <div class="p-2 bg-white rounded border border-black shadow-[2px_2px_0px_#000]">
+                    <p class="font-bold text-xs text-black flex items-center gap-1.5">
+                      <span class="text-[#1683FF]">✦</span> Python Scripting & Automation
+                    </p>
+                    <p class="text-[11px] text-gray-600 mt-0.5">
+                      Algorithmic problem solving, automated workflows, data processing, and applied AI utilities.
+                    </p>
+                  </div>
+
+                  <div class="p-2 bg-white rounded border border-black shadow-[2px_2px_0px_#000]">
+                    <p class="font-bold text-xs text-black flex items-center gap-1.5">
+                      <span class="text-[#1683FF]">✦</span> Java Programming & Core Logic
+                    </p>
+                    <p class="text-[11px] text-gray-600 mt-0.5">
+                      Object-oriented design, robust data structures, and foundational software engineering principles.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- PANEL 03: MY TOOLKIT (Interactive Skills with gauges) -->
+            <div class="manga-panel p-4 rounded-xl">
+              <div class="flex items-center justify-between border-b-2 border-black pb-1 mb-2">
+                <span class="font-burst text-xs bg-black text-white px-2 py-0.5 rounded">PANEL 03</span>
+                <span class="font-manga text-base tracking-wide text-[#1683FF]">THE ARSENAL</span>
+              </div>
+              <h4 class="font-manga text-2xl text-black mb-2">TECHNICAL TOOLKIT</h4>
+              
+              <!-- Toolkit Grid -->
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center" id="skills-container">
+                <!-- Injected via JavaScript from skillsData -->
+              </div>
+            </div>
+
+            <!-- PANEL 04: CURRENT CHAPTER -->
+            <div class="manga-panel p-4 rounded-xl flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between border-b-2 border-black pb-1 mb-2">
+                  <span class="font-burst text-xs bg-black text-white px-2 py-0.5 rounded">PANEL 04</span>
+                  <span class="font-manga text-base tracking-wide text-[#1683FF]">ONGOING QUEST</span>
+                </div>
+                <h4 class="font-manga text-2xl text-black">CURRENT CHAPTER</h4>
+                
+                <div class="mt-2 space-y-2">
+                  <div class="p-2 bg-white border border-black rounded">
+                    <span class="text-[10px] font-mono uppercase bg-[#1683FF] text-white px-1.5 py-0.5 rounded">IN PROGRESS</span>
+                    <p class="text-xs font-bold text-gray-900 mt-1">Deepening Applied AI & Modern Software Systems</p>
+                    <p class="text-[11px] text-gray-600 mt-0.5">Actively studying machine intelligence models, data structures, and full-stack integration.</p>
+                  </div>
+
+                  <div class="p-2 bg-white border border-black rounded">
+                    <span class="text-[10px] font-mono uppercase bg-black text-white px-1.5 py-0.5 rounded">OPEN TO OPPORTUNITIES</span>
+                    <p class="text-xs font-bold text-gray-900 mt-1">Internships & Collaborative Projects</p>
+                    <p class="text-[11px] text-gray-600 mt-0.5">Excited to work on impactful web development and programming assignments with passionate engineering teams.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-2 text-right">
+                <button onclick="goToPage(3)" class="btn-manga text-xs px-3 py-1.5 rounded font-manga tracking-wider">
+                  VIEW CREATED PROJECTS ➔
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Page Footer Indicator -->
+          <div class="border-t-2 border-black pt-2 flex items-center justify-between text-xs font-mono font-bold text-gray-700">
+            <span>[ SIVAPRIYAN S - CHAPTER 02 ]</span>
+            <span>NEXT: CHAPTER 03 (PROJECTS) ➔</span>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- PAGE 3: PROJECTS CHAPTER ("WORKS IN ACTION") -->
+      <section id="page-3" class="manga-page future" aria-label="Page 3: Projects Showcase">
+        <div class="page-spine-shadow"></div>
+        <div class="p-6 md:p-8 flex flex-col justify-between h-full paper-texture">
+          
+          <!-- Chapter Header & Filters -->
+          <div>
+            <div class="flex items-center justify-between border-b-2 border-black pb-2 mb-3">
+              <div class="flex items-center gap-2">
+                <span class="font-burst text-sm bg-black text-white px-2 py-0.5">CH. 03</span>
+                <span class="font-manga text-lg tracking-wider text-[#111111]">WORKS IN ACTION</span>
+              </div>
+              <span class="font-mono text-xs font-bold text-gray-600">PAGE 03 / 05</span>
+            </div>
+
+            <!-- Filter Controls -->
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+              <p class="text-xs font-bold text-gray-800">
+                Explore projects crafted with Web Technologies, Python, and Java:
+              </p>
+              
+              <!-- Filter Buttons -->
+              <div class="flex items-center gap-1.5 overflow-x-auto pb-1" id="project-filter-buttons">
+                <button onclick="filterProjects('all')" class="project-filter-btn px-2.5 py-1 text-xs font-manga rounded border-2 border-black bg-black text-white shadow-[2px_2px_0px_#1683FF]" data-filter="all">ALL (ALL)</button>
+                <button onclick="filterProjects('Web')" class="project-filter-btn px-2.5 py-1 text-xs font-manga rounded border-2 border-black bg-white text-black hover:bg-gray-100" data-filter="Web">WEB</button>
+                <button onclick="filterProjects('Python')" class="project-filter-btn px-2.5 py-1 text-xs font-manga rounded border-2 border-black bg-white text-black hover:bg-gray-100" data-filter="Python">PYTHON</button>
+                <button onclick="filterProjects('Java')" class="project-filter-btn px-2.5 py-1 text-xs font-manga rounded border-2 border-black bg-white text-black hover:bg-gray-100" data-filter="Java">JAVA</button>
+                <button onclick="filterProjects('AI')" class="project-filter-btn px-2.5 py-1 text-xs font-manga rounded border-2 border-black bg-white text-black hover:bg-gray-100" data-filter="AI">AI</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic Projects Comic Spread Container -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-auto" id="projects-grid">
+            <!-- Project Panels will be dynamically populated from projectsData array -->
+          </div>
+
+          <!-- Page Footer Indicator -->
+          <div class="border-t-2 border-black pt-2 flex items-center justify-between text-xs font-mono font-bold text-gray-700">
+            <span>[ SIVAPRIYAN S - WORKS IN ACTION ]</span>
+            <span>PROCEED TO CH. 04: CODING CHRONICLES ➔</span>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- PAGE 4: BLOG / WORKS CHAPTER ("THE CODING CHRONICLES") -->
+      <section id="page-4" class="manga-page future" aria-label="Page 4: Blog and Works Chapter">
+        <div class="page-spine-shadow"></div>
+        <div class="p-6 md:p-8 flex flex-col justify-between h-full paper-texture">
+          
+          <!-- Chapter Header -->
+          <div>
+            <div class="flex items-center justify-between border-b-2 border-black pb-2 mb-3">
+              <div class="flex items-center gap-2">
+                <span class="font-burst text-sm bg-black text-white px-2 py-0.5">CH. 04</span>
+                <span class="font-manga text-lg tracking-wider text-[#111111]">THE CODING CHRONICLES (BLOG & ARTICLES)</span>
+              </div>
+              <span class="font-mono text-xs font-bold text-gray-600">PAGE 04 / 05</span>
+            </div>
+
+            <!-- Chapter Intro Bar -->
+            <div class="p-2.5 bg-white border-2 border-black rounded-lg mb-4 flex items-center justify-between shadow-[3px_3px_0px_#000]">
+              <div class="flex items-center gap-2">
+                <span class="font-burst text-sm bg-[#1683FF] text-white px-2 py-0.5 rounded">DOCS</span>
+                <span class="text-xs text-gray-800 font-medium">Technical writings, engineering insights, and learning reflections.</span>
+              </div>
+              <span class="text-[10px] font-mono text-gray-500 hidden sm:inline">READ & CONTEMPLATE</span>
+            </div>
+          </div>
+
+          <!-- Blog Articles Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-auto" id="blog-grid">
+            <!-- Populated dynamically from blogPostsData array -->
+          </div>
+
+          <!-- Page Footer Indicator -->
+          <div class="border-t-2 border-black pt-2 flex items-center justify-between text-xs font-mono font-bold text-gray-700">
+            <span>[ SIVAPRIYAN S - CHRONICLES ]</span>
+            <span>FINAL DESTINATION: THE BACK COVER / CONTACT ➔</span>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- PAGE 5: CONTACT PAGE (THE FINAL PAGE / BACK COVER) -->
+      <section id="page-5" class="manga-page future bg-[#0d0d0d] text-white border-4 border-[#FFFFFF] !shadow-[0_20px_50px_rgba(0,0,0,0.9),10px_10px_0px_#1683FF]" aria-label="Page 5: Final Page / Contact Back Cover">
+        <div class="page-spine-shadow opacity-40"></div>
+        <div class="relative w-full h-full p-6 md:p-8 flex flex-col justify-between halftone-dots-white overflow-y-auto">
+          
+          <!-- Top Header Strip -->
+          <div class="flex items-center justify-between border-b-2 border-white pb-2 mb-3">
+            <div class="flex items-center gap-2">
+              <span class="font-burst text-sm bg-[#1683FF] text-black px-2 py-0.5 rounded">FINAL SPREAD</span>
+              <span class="font-manga text-lg tracking-wider text-white">THE BACK COVER</span>
+            </div>
+            <span class="font-burst text-lg text-[#1683FF] tracking-widest">TO BE CONTINUED...</span>
+          </div>
+
+          <!-- Final Page Content Split -->
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-6 my-auto">
+            
+            <!-- Left Side: Dramatic "THE END / TO BE CONTINUED" Manga Splash -->
+            <div class="md:col-span-5 flex flex-col justify-between bg-black/80 p-5 rounded-xl border-3 border-white shadow-[5px_5px_0px_#1683FF]">
+              <div>
+                <div class="inline-block bg-[#1683FF] text-white font-burst text-xs px-2.5 py-1 rounded mb-3 rotate-[-4deg]">
+                  THE JOURNEY NEVER STOPS
+                </div>
+
+                <h3 class="font-manga text-5xl sm:text-6xl text-white tracking-tight leading-none drop-shadow-[2px_2px_0px_#000]">
+                  THE END
+                </h3>
+                
+                <p class="font-burst text-xl text-[#1683FF] mt-1">
+                  BUT THE STORY CONTINUES...
+                </p>
+
+                <p class="text-xs text-gray-300 font-sans mt-3 leading-relaxed">
+                  Thank you for reading through my developer manga volume! Whether you have an exciting project, an internship opportunity, or simply want to talk technology, I’d love to connect.
+                </p>
+
+                <!-- Developer Contact Credentials -->
+                <div class="mt-4 space-y-2 font-mono text-xs">
+                  <div class="p-2 bg-white/10 rounded border border-gray-700 flex items-center justify-between">
+                    <span class="text-gray-400">EMAIL:</span>
+                    <span class="font-bold text-white select-all">sivapriyan.tech@gmail.com</span>
+                  </div>
+                  <div class="p-2 bg-white/10 rounded border border-gray-700 flex items-center justify-between">
+                    <span class="text-gray-400">LOCATION:</span>
+                    <span class="font-bold text-white">Chennai, India</span>
+                  </div>
+                  <div class="p-2 bg-white/10 rounded border border-gray-700 flex items-center justify-between">
+                    <span class="text-gray-400">STUDIES:</span>
+                    <span class="font-bold text-white">B.Tech CSE (Applied AI)</span>
+                  </div>
+                </div>
+
+                <!-- Social Action Buttons -->
+                <div class="flex items-center gap-2 mt-4 pt-3 border-t border-gray-800">
+                  <a href="https://github.com/sivapriyan-s" target="_blank" rel="noopener noreferrer" class="flex-1 py-1.5 text-center text-xs font-manga bg-white text-black rounded border border-black hover:bg-[#1683FF] hover:text-white transition">
+                    GITHUB ↗
+                  </a>
+                  <a href="https://www.linkedin.com/in/sivapriyan-sp/" target="_blank" rel="noopener noreferrer" class="flex-1 py-1.5 text-center text-xs font-manga bg-white text-black rounded border border-black hover:bg-[#1683FF] hover:text-white transition">
+                    LINKEDIN ↗
+                  </a>
+                </div>
+              </div>
+
+              <!-- Re-Read Book Button -->
+              <div class="mt-4 pt-3 border-t border-dashed border-gray-800 text-center">
+                <button onclick="goToPage(0)" class="btn-manga w-full text-xs py-2 rounded-lg font-manga tracking-wider hover:bg-[#1683FF] hover:text-white">
+                  ↺ CLOSE BOOK & RETURN TO COVER
+                </button>
+              </div>
+            </div>
+
+            <!-- Right Side: Interactive Manga Contact Form -->
+            <div class="md:col-span-7 bg-[#141414] p-5 rounded-xl border-3 border-white shadow-[5px_5px_0px_#1683FF] flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <span class="font-burst text-sm text-[#1683FF]">TRANSMIT DISPATCH</span>
+                  <span class="text-[11px] font-mono text-gray-400">SEND A MESSAGE</span>
+                </div>
+
+                <!-- Feedback Speech Bubble -->
+                <div id="contact-feedback" class="hidden mb-4 p-3 bg-white text-black rounded-xl border-2 border-black text-xs font-bold shadow-[3px_3px_0px_#1683FF]">
+                  <!-- Injected message -->
+                </div>
+
+                <!-- Form -->
+                <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-3">
+                  <div>
+                    <label for="contact-name" class="block font-burst text-xs text-gray-300 mb-1">YOUR NAME</label>
+                    <input type="text" name="user_name" id="contact-name" required placeholder="E.g., Prem Pranker" class="w-full px-3 py-2 bg-black border-2 border-gray-600 rounded-lg text-white text-xs focus:outline-none focus:border-[#1683FF] transition">
+                  </div>
+
+                  <div>
+                    <label for="contact-email" class="block font-burst text-xs text-gray-300 mb-1">YOUR EMAIL ADDRESS</label>
+                    <input type="email" name="user_email" id="contact-email" required placeholder="E.g., prem@pranker.com" class="w-full px-3 py-2 bg-black border-2 border-gray-600 rounded-lg text-white text-xs focus:outline-none focus:border-[#1683FF] transition">
+                  </div>
+
+                  <div>
+                    <label for="contact-subject" class="block font-burst text-xs text-gray-300 mb-1">SUBJECT / TOPIC</label>
+                    <input type="text" name="subject" id="contact-subject" required placeholder="Project collaboration / Opportunity" class="w-full px-3 py-2 bg-black border-2 border-gray-600 rounded-lg text-white text-xs focus:outline-none focus:border-[#1683FF] transition">
+                  </div>
+
+                  <div>
+                    <label for="contact-message" class="block font-burst text-xs text-gray-300 mb-1">MESSAGE TRANSMISSION</label>
+                    <textarea name="message" id="contact-message" rows="3" required placeholder="Write your message here..." class="w-full px-3 py-2 bg-black border-2 border-gray-600 rounded-lg text-white text-xs focus:outline-none focus:border-[#1683FF] transition resize-none"></textarea>
+                  </div>
+
+                  <button type="submit" id="contact-submit-btn" class="btn-manga btn-manga-blue w-full py-2.5 rounded-lg text-base font-manga tracking-wider">
+                    <span>DISPATCH MESSAGE</span>
+                    <span>⚡</span>
+                  </button>
+                </form>
+              </div>
+
+              <!-- Barcode bottom decoration -->
+              <div class="mt-4 pt-3 border-t border-gray-800 flex items-center justify-between text-[10px] font-mono text-gray-500">
+                <span>AUTHENTIC MANGA DOCUMENT</span>
+                <span>VOL. 01 — FIN</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Footer -->
+          <div class="border-t border-gray-800 pt-2 mt-2 flex items-center justify-between text-[11px] font-mono text-gray-400">
+            <span>© Sivapriyan S • All rights reserved</span>
+            <span>Crafted with Web Tech & Manga Passion</span>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Floating Manga Navigation HUD Controller -->
+  <aside class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-11/12 max-w-lg bg-[#0a0a0a]/95 backdrop-blur-md border-3 border-white rounded-2xl p-2.5 shadow-[5px_5px_0px_#1683FF] flex items-center justify-between gap-2" aria-label="Manga Book Navigation Controls">
+    
+    <!-- Previous Page Button -->
+    <button id="prev-page-btn" onclick="prevPage()" class="btn-manga px-3 py-1.5 rounded-lg text-sm font-manga tracking-wider" aria-label="Previous Page">
+      <span>◀</span>
+      <span class="hidden sm:inline">PREV PAGE</span>
+    </button>
+
+    <!-- Center Dynamic Page Status Indicator -->
+    <div class="flex items-center gap-2 px-3 py-1 bg-[#1a1a1a] rounded-lg border border-gray-700">
+      <div class="w-2 h-2 rounded-full bg-[#1683FF] animate-ping"></div>
+      <span id="hud-page-indicator" class="font-manga text-base sm:text-lg tracking-wider text-white">
+        PAGE 00 / 05
+      </span>
+      <span id="hud-chapter-title" class="text-[10px] font-mono text-gray-400 hidden sm:inline pl-1 border-l border-gray-700">
+        COVER
+      </span>
+    </div>
+
+    <!-- Next Page Button -->
+    <button id="next-page-btn" onclick="nextPage()" class="btn-manga btn-manga-blue px-3 py-1.5 rounded-lg text-sm font-manga tracking-wider" aria-label="Next Page">
+      <span class="hidden sm:inline">NEXT PAGE</span>
+      <span>▶</span>
+    </button>
+  </aside>
+
+  <!-- Project Detail Modal -->
+  <div id="project-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="manga-panel max-w-lg w-full p-6 rounded-2xl relative shadow-[8px_8px_0px_#1683FF] animate-in fade-in duration-200">
+      <button onclick="closeProjectModal()" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black text-white font-burst text-lg flex items-center justify-center hover:bg-[#1683FF] transition">
+        ✕
+      </button>
+      <div id="project-modal-content">
+        <!-- Injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Blog Article Reader Modal (Simulated Manga Chapter Reader) -->
+  <div id="blog-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="manga-panel max-w-2xl w-full max-h-[88vh] overflow-y-auto p-6 sm:p-8 rounded-2xl relative shadow-[10px_10px_0px_#1683FF]">
+      <button onclick="closeBlogModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-black text-white font-burst text-xl flex items-center justify-center hover:bg-[#1683FF] transition">
+        ✕
+      </button>
+      <div id="blog-modal-content">
+        <!-- Injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /**
+     * =========================================================================
+     * SIVAPRIYAN S - MANGA PORTFOLIO ENGINE & EDITABLE DATASETS
+     * =========================================================================
+     */
+
+
+    emailjs.init({
+      publicKey: "Mx0jx5n4l-gslwVq7" 
+    });
+
+    // TECHNICAL TOOLKIT DATA (Editable)
+    const skillsData = [
+      { name: "HTML5", power: "90%", category: "Web", icon: "🌐" },
+      { name: "CSS3", power: "88%", category: "Web", icon: "🎨" },
+      { name: "JavaScript", power: "85%", category: "Web", icon: "⚡" },
+      { name: "Python", power: "92%", category: "Core", icon: "🐍" },
+      { name: "Java", power: "84%", category: "Core", icon: "☕" },
+      { name: "Git", power: "86%", category: "Tool", icon: "🐙" },
+      { name: "GitHub", power: "88%", category: "Tool", icon: "📦" },
+      { name: "Applied AI", power: "82%", category: "AI", icon: "🧠" }
+    ];
+
+    // Add real project details here as they become available.
+    const projectsData = [];
+
+    // Add real articles here as they become available.
+    const blogPostsData = [];
+
+    // Navigation State
+    let currentPageIndex = 0;
+    const totalPages = 6;
+    const chapterNames = ["COVER", "HERO SPREAD", "ORIGIN & ARSENAL", "WORKS IN ACTION", "THE CODING CHRONICLES", "THE BACK COVER"];
+
+    // Update Book DOM classes and Page Flipping
+    function updateBookPages() {
+      for (let i = 0; i < totalPages; i++) {
+        const pageElem = document.getElementById(`page-${i}`);
+        if (!pageElem) continue;
+
+        pageElem.classList.remove('past', 'active', 'future');
+        pageElem.classList.add(i < currentPageIndex ? 'past' : i === currentPageIndex ? 'active' : 'future');
+      }
+
+      const hudPage = document.getElementById('hud-page-indicator');
+      const hudCh = document.getElementById('hud-chapter-title');
+      const prevBtn = document.getElementById('prev-page-btn');
+      const nextBtn = document.getElementById('next-page-btn');
+
+      if (hudPage) hudPage.textContent = `PAGE 0${currentPageIndex} / 0${totalPages - 1}`;
+      if (hudCh) hudCh.textContent = chapterNames[currentPageIndex] || "";
+
+      if (prevBtn) {
+        prevBtn.disabled = currentPageIndex === 0;
+        prevBtn.style.opacity = currentPageIndex === 0 ? "0.4" : "1";
+      }
+      if (nextBtn) {
+        nextBtn.disabled = currentPageIndex === totalPages - 1;
+        nextBtn.style.opacity = currentPageIndex === totalPages - 1 ? "0.4" : "1";
+      }
+
+      // Play page swish sound effect
+      playPageTurnAudio();
+    }
+
+    // Next Page Handler
+    function nextPage() {
+      if (currentPageIndex < totalPages - 1) {
+        triggerPageTurnTransition(() => {
+          currentPageIndex++;
+          updateBookPages();
+        });
+      }
+    }
+
+    // Previous Page Handler
+    function prevPage() {
+      if (currentPageIndex > 0) {
+        triggerPageTurnTransition(() => {
+          currentPageIndex--;
+          updateBookPages();
+        });
+      }
+    }
+
+    // Direct Jump to Page Handler
+    function goToPage(targetIndex) {
+      if (targetIndex < 0 || targetIndex >= totalPages || targetIndex === currentPageIndex) return;
+      
+      triggerPageTurnTransition(() => {
+        currentPageIndex = targetIndex;
+        updateBookPages();
+      });
+    }
+
+    // Cinematic Manga Opening Sequence
+    function startBookOpeningSequence() {
+      const flash = document.getElementById('screen-flash');
+      if (flash) {
+        flash.style.opacity = '0.35';
+        setTimeout(() => { flash.style.opacity = '0'; }, 220);
+      }
+      createMangaImpact(window.innerWidth / 2, window.innerHeight / 2, "OPEN!!");
+      setTimeout(() => {
+        goToPage(1);
+      }, 150);
+    }
+
+    // Screen transition kick
+    function triggerPageTurnTransition(callback) {
+      const flash = document.getElementById('screen-flash');
+      if (flash) {
+        flash.style.opacity = '0.2';
+        setTimeout(() => { flash.style.opacity = '0'; }, 180);
+      }
+      if (callback) callback();
+    }
+
+    // Web Audio API for Page Turning & Comic Impact SFX (Zero External Files)
+    let audioContext = null;
+    let audioEnabled = true;
+
+    function getAudioContext() {
+      if (!audioContext) {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (AudioCtx) {
+          audioContext = new AudioCtx();
+        }
+      }
+      if (audioContext && audioContext.state === 'suspended') {
+        audioContext.resume();
+      }
+      return audioContext;
+    }
+
+    function toggleAudio() {
+      audioEnabled = !audioEnabled;
+      const icon = document.getElementById('sound-icon');
+      if (icon) {
+        icon.textContent = audioEnabled ? '🔊' : '🔇';
+      }
+    }
+
+    // Procedural Paper Flip "Swish / Rustle" Synthesis
+    function playPageTurnAudio() {
+      if (!audioEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+
+        // Synthesize filtered noise burst to simulate crisp paper rustling
+        const bufferSize = ctx.sampleRate * 0.18; // 180ms
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.4));
+        }
+
+        const noise = ctx.createBufferSource();
+        noise.buffer = buffer;
+
+        // Bandpass filter centered at 1400Hz
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.setValueAtTime(1400, ctx.currentTime);
+        filter.frequency.exponentialRampToValueAtTime(600, ctx.currentTime + 0.18);
+        filter.Q.value = 1.8;
+
+        const gain = ctx.createGain();
+        gain.gain.setValueAtTime(0.25, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.18);
+
+        noise.connect(filter);
+        filter.connect(gain);
+        gain.connect(ctx.destination);
+
+        noise.start();
+      } catch (err) {
+        // Audio synthesis fallback silently
+      }
+    }
+
+    // Comic Blam/Click Chord
+    function playClickAudio() {
+      if (!audioEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(520, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(160, ctx.currentTime + 0.08);
+
+        gain.gain.setValueAtTime(0.18, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start();
+        osc.stop(ctx.currentTime + 0.08);
+      } catch(e) {}
+    }
+
+    // Render Technical Skills Panel
+    function renderSkills() {
+      const container = document.getElementById('skills-container');
+      if (!container) return;
+
+      container.innerHTML = skillsData.map(skill => `
+        <div class="p-2 bg-white rounded border border-black shadow-[2px_2px_0px_#000] flex flex-col items-center justify-between">
+          <span class="text-xl">${skill.icon}</span>
+          <span class="font-manga text-sm text-black tracking-wide">${skill.name}</span>
+          <div class="w-full bg-gray-200 h-1.5 rounded-full mt-1.5 overflow-hidden border border-black">
+            <div class="bg-[#1683FF] h-full rounded-full" style="width: ${skill.power}"></div>
+          </div>
+          <span class="text-[9px] font-mono font-bold text-gray-500 mt-1">${skill.power}</span>
+        </div>
+      `).join('');
+    }
+
+    // Render Projects Cards
+    function renderProjects(filter = 'all') {
+      const grid = document.getElementById('projects-grid');
+      if (!grid) return;
+
+      const filters = document.getElementById('project-filter-buttons');
+      if (filters) filters.hidden = projectsData.length === 0;
+
+      if (projectsData.length === 0) {
+        grid.innerHTML = '<p class="col-span-full text-center text-sm font-mono text-gray-600">Projects will appear here soon.</p>';
+        return;
+      }
+
+      const filtered = filter === 'all' 
+        ? projectsData 
+        : projectsData.filter(p => p.category.toLowerCase() === filter.toLowerCase() || p.technologies.some(t => t.toLowerCase() === filter.toLowerCase()));
+
+      grid.innerHTML = filtered.map((proj, idx) => `
+        <div class="manga-panel p-4 rounded-xl flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between border-b-2 border-black pb-1 mb-2">
+              <span class="font-burst text-xs bg-black text-white px-2 py-0.5 rounded">ITEM #0${idx + 1}</span>
+              <span class="font-manga text-xs tracking-wider bg-[#1683FF] text-white px-2 py-0.5 rounded">${proj.category}</span>
+            </div>
+
+            <h4 class="font-manga text-xl text-black leading-tight">${proj.title}</h4>
+
+            <p class="text-xs text-gray-700 font-sans mt-2 line-clamp-3">
+              ${proj.description}
+            </p>
+
+            <!-- Tech Badges -->
+            <div class="flex flex-wrap gap-1 mt-3">
+              ${proj.technologies.map(t => `
+                <span class="text-[10px] font-mono font-bold bg-white text-black px-1.5 py-0.5 rounded border border-black">
+                  ${t}
+                </span>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- Project Actions -->
+          <div class="mt-4 pt-3 border-t border-dashed border-gray-400 flex items-center justify-between gap-2">
+            <button onclick="openProjectModal('${proj.id}')" class="btn-manga text-xs px-2.5 py-1.5 rounded font-manga tracking-wider flex-1">
+              PANEL ZOOM 🔍
+            </button>
+            <a href="${proj.github}" target="_blank" rel="noopener noreferrer" class="btn-manga btn-manga-blue text-xs px-2.5 py-1.5 rounded font-manga tracking-wider flex-1">
+              GITHUB ↗
+            </a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Filter projects button state
+    function filterProjects(category) {
+      document.querySelectorAll('.project-filter-btn').forEach(btn => {
+        if (btn.getAttribute('data-filter') === category) {
+          btn.className = "project-filter-btn px-2.5 py-1 text-xs font-manga rounded border-2 border-black bg-black text-white shadow-[2px_2px_0px_#1683FF]";
+        } else {
+          btn.className = "project-filter-btn px-2.5 py-1 text-xs font-manga rounded border-2 border-black bg-white text-black hover:bg-gray-100";
+        }
+      });
+      renderProjects(category);
+    }
+
+    // Open Project Detail Modal
+    function openProjectModal(id) {
+      const proj = projectsData.find(p => p.id === id);
+      if (!proj) return;
+
+      const modalContent = document.getElementById('project-modal-content');
+      modalContent.innerHTML = `
+        <div class="flex items-center justify-between border-b-2 border-black pb-2 mb-3">
+          <span class="font-burst text-sm bg-black text-white px-2.5 py-0.5 rounded">${proj.category} WORK</span>
+          <span class="sfx-badge text-base text-[#1683FF] bg-white px-2 py-0.5 border border-black">SCHHHW!</span>
+        </div>
+
+        <h3 class="font-manga text-3xl text-black leading-tight">${proj.title}</h3>
+
+        <div class="my-3 p-3 bg-white rounded-lg border-2 border-black shadow-[2px_2px_0px_#000]">
+          <p class="text-xs text-gray-800 leading-relaxed font-sans">${proj.description}</p>
+        </div>
+
+        <div class="mb-4">
+          <span class="font-burst text-xs text-gray-900 block mb-1">KEY ENGINEERING HIGHLIGHTS:</span>
+          <p class="text-xs text-gray-700 font-sans">${proj.highlights}</p>
+        </div>
+
+        <div class="mb-4">
+          <span class="font-burst text-xs text-gray-900 block mb-1.5">STACK ARSENAL:</span>
+          <div class="flex flex-wrap gap-1.5">
+            ${proj.technologies.map(t => `<span class="text-xs font-mono font-bold bg-[#1683FF]/15 text-[#0756B8] border border-[#1683FF]/40 px-2 py-0.5 rounded">${t}</span>`).join('')}
+          </div>
+        </div>
+
+        <div class="flex gap-2 pt-3 border-t-2 border-black">
+          <a href="${proj.github}" target="_blank" rel="noopener noreferrer" class="btn-manga btn-manga-blue flex-1 py-2 rounded-lg font-manga tracking-wider text-center">
+            GITHUB SOURCE ↗
+          </a>
+          <button onclick="closeProjectModal()" class="btn-manga flex-1 py-2 rounded-lg font-manga tracking-wider">
+            CLOSE PANEL
+          </button>
+        </div>
+      `;
+
+      document.getElementById('project-modal').classList.remove('hidden');
+    }
+
+    function closeProjectModal() {
+      document.getElementById('project-modal').classList.add('hidden');
+    }
+
+    // Render Blog Articles
+    function renderBlog() {
+      const grid = document.getElementById('blog-grid');
+      if (!grid) return;
+
+      if (blogPostsData.length === 0) {
+        grid.innerHTML = '<p class="col-span-full text-center text-sm font-mono text-gray-600">Articles and work updates will appear here soon.</p>';
+        return;
+      }
+
+      grid.innerHTML = blogPostsData.map(post => `
+        <div class="manga-panel p-4 rounded-xl flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between border-b-2 border-black pb-1 mb-2">
+              <span class="font-burst text-xs bg-[#1683FF] text-white px-2 py-0.5 rounded">${post.chapter}</span>
+              <span class="font-mono text-[10px] text-gray-600 font-bold">${post.readTime}</span>
+            </div>
+
+            <h4 class="font-manga text-xl text-black leading-tight">${post.title}</h4>
+
+            <p class="text-xs text-gray-700 font-sans mt-2 line-clamp-3">
+              ${post.preview}
+            </p>
+
+            <div class="flex flex-wrap gap-1 mt-3">
+              ${post.tags.map(t => `
+                <span class="text-[10px] font-mono bg-white text-gray-800 px-1.5 py-0.5 rounded border border-black">
+                  #${t}
+                </span>
+              `).join('')}
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-dashed border-gray-400">
+            <button onclick="openBlogModal('${post.id}')" class="btn-manga btn-manga-blue w-full text-xs py-1.5 rounded font-manga tracking-wider">
+              READ CHAPTER ➔
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Open Blog Reader Modal
+    function openBlogModal(id) {
+      const post = blogPostsData.find(p => p.id === id);
+      if (!post) return;
+
+      const modalContent = document.getElementById('blog-modal-content');
+      modalContent.innerHTML = `
+        ${post.fullContent}
+        <div class="mt-6 pt-4 border-t-2 border-black flex items-center justify-between">
+          <span class="font-burst text-xs text-gray-500">END OF CHAPTER</span>
+          <button onclick="closeBlogModal()" class="btn-manga text-xs px-4 py-1.5 rounded font-manga tracking-wider">
+            CLOSE CHAPTER
+          </button>
+        </div>
+      `;
+
+      document.getElementById('blog-modal').classList.remove('hidden');
+    }
+
+    function closeBlogModal() {
+      document.getElementById('blog-modal').classList.add('hidden');
+    }
+
+    // Contact Form Handler with Comic Speech Bubble Feedback
+    window.mangaApp = window.mangaApp || {};
+    window.mangaApp.handleContact = function(event) {
+      event.preventDefault();
+
+      const form = event.target;
+      const submitBtn = document.getElementById("contact-submit-btn") || form.querySelector("button[type='submit']");
+      const originalText = submitBtn.innerText;
+
+      submitBtn.disabled = true;
+      form.classList.add("contact-form-shake");
+      submitBtn.innerText = "TRANSMITTING INK... ⏳";
+
+      emailjs.sendForm(
+        "service_4s947hi",
+        "template_30kge4l",
+        form
+      )
+      .then(() => {
+        submitBtn.innerText = "DISPATCH SENT! ✓";
+        submitBtn.style.background = "#22c55e";
+        submitBtn.style.color = "#ffffff";
+        form.reset();
+
+        setTimeout(() => {
+          submitBtn.disabled = false;
+          form.classList.remove("contact-form-shake");
+          submitBtn.innerText = originalText;
+          submitBtn.style.background = "";
+          submitBtn.style.color = "";
+        }, 4000);
+      })
+      .catch((error) => {
+        console.error("EmailJS Error:", error);
+        submitBtn.innerText = "TRANSMISSION FAILED ✕";
+        submitBtn.style.background = "#ef4444";
+        submitBtn.style.color = "#ffffff";
+
+        setTimeout(() => {
+          submitBtn.disabled = false;
+          form.classList.remove("contact-form-shake");
+          submitBtn.innerText = originalText;
+          submitBtn.style.background = "";
+          submitBtn.style.color = "";
+        }, 3000);
+      });
+    };
+
+    function handleContactSubmit(event) {
+      return window.mangaApp.handleContact(event);
+    }
+
+    // Keyboard Navigation
+    window.addEventListener('keydown', (e) => {
+      // Prevent turning pages if user is currently typing in input/textarea
+      const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
+      if (activeTag === 'input' || activeTag === 'textarea') return;
+
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+        nextPage();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevPage();
+      } else if (e.key === 'Escape') {
+        closeProjectModal();
+        closeBlogModal();
+      } else if (e.key === 'Home') {
+        goToPage(0);
+      } else if (e.key === 'End') {
+        goToPage(totalPages - 1);
+      }
+    });
+
+    // Mobile Swipe Gestures
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+
+    const bookContainer = document.getElementById('book-container');
+
+    if (bookContainer) {
+      bookContainer.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+      }, { passive: true });
+
+      bookContainer.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        touchEndY = e.changedTouches[0].screenY;
+        handleSwipe();
+      }, { passive: true });
+    }
+
+    function handleSwipe() {
+      const diffX = touchEndX - touchStartX;
+      const diffY = touchEndY - touchStartY;
+      // Minimum swipe distance & horizontal dominance check
+      if (Math.abs(diffX) > 45 && Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX < 0) {
+          // Swiped Left -> Go Next Page
+          nextPage();
+        } else {
+          // Swiped Right -> Go Previous Page
+          prevPage();
+        }
+      }
+    }
+
+    // Custom Manga Crosshair Cursor & Click Impacts
+    const cursor = document.getElementById('manga-cursor');
+
+    window.addEventListener('mousemove', (e) => {
+      if (cursor) {
+        cursor.style.left = `${e.clientX}px`;
+        cursor.style.top = `${e.clientY}px`;
+      }
+    });
+
+    window.addEventListener('click', (e) => {
+      // Trigger click audio
+      playClickAudio();
+      // Generate Manga click ripple & onomatopoeia
+      createMangaImpact(e.clientX, e.clientY);
+    });
+
+    // Onomatopoeia sound effect words
+    const sfxWords = ["BAM!", "SWOOSH!", "BLAM!", "CLICK!", "POW!", "SHHK!"];
+
+    function createMangaImpact(x, y, customText = null) {
+      // Do not create DOM elements if user prefers reduced motion
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      // Ring
+      const ring = document.createElement('div');
+      ring.className = 'manga-click-ring';
+      ring.style.left = `${x}px`;
+      ring.style.top = `${y}px`;
+      ring.style.width = '60px';
+      ring.style.height = '60px';
+      document.body.appendChild(ring);
+
+      // Burst badge
+      const burst = document.createElement('div');
+      burst.className = 'manga-click-burst';
+      burst.style.left = `${x}px`;
+      burst.style.top = `${y}px`;
+      burst.textContent = customText || sfxWords[Math.floor(Math.random() * sfxWords.length)];
+      document.body.appendChild(burst);
+
+      setTimeout(() => {
+        if (ring.parentNode) ring.parentNode.removeChild(ring);
+        if (burst.parentNode) burst.parentNode.removeChild(burst);
+      }, 550);
+    }
+
+    // Background Manga Speedlines Canvas Animation
+    const canvas = document.getElementById('speedline-canvas');
+    let ctx = null;
+    let speedlinesEnabled = true;
+    let animationFrameId = null;
+
+    function initSpeedlines() {
+      if (!canvas) return;
+      ctx = canvas.getContext('2d');
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+      animateSpeedlines();
+    }
+
+    function resizeCanvas() {
+      if (!canvas) return;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    function toggleSpeedlines() {
+      speedlinesEnabled = !speedlinesEnabled;
+      if (canvas) {
+        canvas.style.opacity = speedlinesEnabled ? '0.35' : '0';
+      }
+    }
+
+    let lineAngleOffset = 0;
+    function animateSpeedlines() {
+      if (speedlinesEnabled && ctx && canvas && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const maxRadius = Math.max(canvas.width, canvas.height);
+        const numLines = 45;
+
+        lineAngleOffset += 0.003;
+
+        ctx.strokeStyle = '#1683FF';
+        ctx.lineWidth = 1.2;
+
+        for (let i = 0; i < numLines; i++) {
+          const angle = ((i * (Math.PI * 2)) / numLines) + lineAngleOffset;
+          const innerDist = 280 + Math.sin(lineAngleOffset * 4 + i) * 60;
+          const outerDist = maxRadius;
+
+          const startX = centerX + Math.cos(angle) * innerDist;
+          const startY = centerY + Math.sin(angle) * innerDist;
+          const endX = centerX + Math.cos(angle) * outerDist;
+          const endY = centerY + Math.sin(angle) * outerDist;
+
+          ctx.beginPath();
+          ctx.moveTo(startX, startY);
+          ctx.lineTo(endX, endY);
+          ctx.globalAlpha = 0.15 + (i % 3 === 0 ? 0.2 : 0);
+          ctx.stroke();
+        }
+      }
+      animationFrameId = requestAnimationFrame(animateSpeedlines);
+    }
+
+    // Initialize everything once DOM is loaded
+    window.addEventListener('DOMContentLoaded', () => {
+      renderSkills();
+      renderProjects('all');
+      renderBlog();
+      initSpeedlines();
+      updateBookPages();
+    });
+  </script>
+</body>
+</html>
