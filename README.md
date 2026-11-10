@@ -100,8 +100,8 @@ I enjoy transforming ideas into functional applications, exploring emerging tech
 ## 📬 Connect With Me
 
 - **Portfolio:** https://priyanarc.web.app/
-- **GitHub:** [Add your GitHub profile URL]
-- **LinkedIn:** [Add your LinkedIn profile URL]
+- **GitHub:** https://github.com/sivapriyan-s
+- **LinkedIn:** https://www.linkedin.com/in/sivapriyan-sp/
 - **Email:** sivapriyan.tech@gmail.com
 
 ---
